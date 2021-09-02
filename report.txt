@@ -1,0 +1,83 @@
+
+lays new
+22
+7
+21
+lays new
+20
+7
+35
+lays new
+21
+7
+28
+Thu Sep  2 17:14:54 2021
+lays 26 10 40
+
+Thu Sep  2 17:18:23 2021
+Product name: lays Qty 27
+Total Amt: 10 30
+
+Thu Sep  2 19:32:07 2021
+Product name: Apple Qty 17
+Total Amt: 65.0 150
+
+Thu Sep  2 19:32:07 2021
+Product name: Apple Qty 17
+Total Amt: 65.0 150
+
+Thu Sep  2 19:32:07 2021
+Product name: GoodDay Qty 58
+Total Amt: 20.0 150
+
+Thu Sep  2 19:32:07 2021
+Product name: Apple Qty 17
+Total Amt: 65.0 150
+
+Thu Sep  2 19:32:07 2021
+Product name: GoodDay Qty 58
+Total Amt: 20.0 150
+
+Thu Sep  2 19:32:07 2021
+Product name: Soda Qty 43
+Total Amt: 15.0 150
+
+Thu Sep  2 20:29:48 2021
+Product name: Ball pen Qty 73
+Total Amt: 7.0 14
+
+Thu Sep  2 20:31:13 2021
+Product name: Iodex Qty 24
+Total Amt: 65.0 140
+
+Thu Sep  2 20:31:13 2021
+Product name: Iodex Qty 24
+Total Amt: 65.0 140
+
+Thu Sep  2 20:31:13 2021
+Product name: Soda Qty 41
+Total Amt: 15.0 140
+
+Thu Sep  2 20:33:41 2021
+Product name: Rice Qty 95
+Total Amt: 50.0 346
+
+Thu Sep  2 20:33:41 2021
+Product name: Rice Qty 95
+Total Amt: 50.0 346
+
+Thu Sep  2 20:33:41 2021
+Product name: Eggs Qty 188
+Total Amt: 8.0 346
+
+Thu Sep  2 20:36:20 2021
+Product name: Apple Qty 17
+Total Amt: 65.0 85
+
+Thu Sep  2 20:36:20 2021
+Product name: Apple Qty 17
+Total Amt: 65.0 85
+
+Thu Sep  2 20:36:20 2021
+Product name: Lays Qty 248
+Total Amt: 10.0 85
