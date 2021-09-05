@@ -22,4 +22,17 @@ Transaction ID: 20210003
 Product name: Soda	Qty sold: 2
 Total Amount: 30Rs 
 
+ Sun Sep  5 17:12:24 2021
+Transaction ID: 20210004
+Product name: Eggs	Qty sold: 12
+Product name: Cheese	Qty sold: 1
+Product name: Iodex	Qty sold: 1
+Total Amount: 206Rs 
+
+ Sun Sep  5 17:14:45 2021
+Transaction ID: 20210005
+Product name: HappyHappy Biscuit	Qty sold: 2
+Product name: Munch	Qty sold: 4
+Total Amount: 40Rs 
+
  

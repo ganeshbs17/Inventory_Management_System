@@ -1,5 +1,33 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+#  #                  Inventory Management System
+
+# ## Features
+# 
+# * Loads data from a json file
+# * Shows the list of products available in inventory to user
+# * Can take multiple product inputs at once
+# * Displays the bill and Update the inventory
+# * Saves the Sales record into a Text file
+# * Admin panel with login Feature to Manage inventory
+# 
+
+# ###  Run Each cell till the end to Execute Main Program
+
+# In[13]:
+
+
+#import required libraries
+
 import json
 from random import random
+
+
+# #### Function to verify credentials for admin login
+
+# In[14]:
+
 
 def login(i_username, i_password):
     with open('inventory.json', 'r') as inv:
@@ -13,6 +41,12 @@ def login(i_username, i_password):
         else:
             return True
 
+
+# #### Admin login Function 
+
+# In[15]:
+
+
 def admin():
     print("\t"*3 + "-"*5 + "LOGIN" + "-"*5)
     username = input('Enter username: ').strip()
@@ -24,6 +58,34 @@ def admin():
     else:
         print('Please enter correct username & password')
         return admin()
+
+
+# #### Function to View inventory items
+
+# In[29]:
+
+
+def view_product():
+    with open('inventory.json','r') as inv:
+        data=json.load(inv)
+        inv.close()
+        print('Product ID Product Name \t  Category \t\tBrand')
+        print("-" *75)
+        for product_id, product in data['products'].items():
+            print(f"{product_id : <10} ",f"{product['name']: <22}",f"{product['category']: <20}",f"{product['brand']: <15}")
+
+
+# In[30]:
+
+
+# Run this to View Products
+view_product()
+
+
+# #### Function to Add a product into inventory
+
+# In[17]:
+
 
 def add_product():
     product_name = input('Enter product name: ').strip()
@@ -51,12 +113,18 @@ def add_product():
            
     return admin_panel()
 
-def view_product():
-    with open('inventory.json','r') as inv:
-        data=json.load(inv)
-        inv.close()
-        for product_id, product in data['products'].items():
-            print(f"Product ID: {product_id} ",f": {product['name']}")
+
+# In[ ]:
+
+
+# Execute this to test Add product function
+add_product()
+
+
+# #### Function to search a product from inventory
+
+# In[18]:
+
 
 def search_product():
     product_name = input('Search product: ').strip()
@@ -74,6 +142,19 @@ def search_product():
                 
                 print("-"*10)
 
+
+# In[34]:
+
+
+# Run this to test Search product function
+search_product()
+
+
+# #### Updating an Existing product from inventory
+
+# In[39]:
+
+
 def update_product():
     product_id = input('Enter product id: ').strip()
     if not product_id:
@@ -86,20 +167,14 @@ def update_product():
         if product_id not in ids:
             print("Please enter a valid id ...")
             return update_product()
-
+        print('Hit "Enter" to skip updating that value')
         u_name = input('Enter updated product name: ').strip()
         u_price =input('Enter updated price: ').strip()
-        u_quantity = input('Enter updated Quantity: ').strip()
+        u_quantity = input('Enter number added: ').strip()
         u_category = input('Enter updated category: ').strip()
         u_brand = input('Enter updated brand: ').strip()
         
-#         updated_list=[u_name,u_price, u_quantity, u_category, u_brand]
-#         keys=['name','price','quantity','category','brand']
-        
-        
-#         for i,j in zip(updated_list, keys):
-#             if not i:
-#                 i = data['products'][product_id][j]
+
         if not u_name:
             u_name = data['products'][product_id]['name']
             
@@ -118,7 +193,7 @@ def update_product():
         updated_product = {
             "name": u_name,
             "price": int(u_price),
-            "quantity" : int(u_quantity),
+            "quantity" : data['products'][product_id]['quantity'] + int(u_quantity),
             "category" : u_category,
             "brand" : u_brand
         }
@@ -129,6 +204,18 @@ def update_product():
             json.dump(data, inv,indent=2, sort_keys=True)
             
         return admin_panel()
+
+
+# In[40]:
+
+
+# Run this to test Update product function
+update_product()
+
+
+# #### Function to Delete a Product from inventory
+
+# In[20]:
 
 
 def delete_product():
@@ -152,6 +239,12 @@ def delete_product():
             
     return admin_panel()
 
+
+# #### Admin Panel Function
+
+# In[21]:
+
+
 def admin_panel():
     
     print('\t\t----------WELCOME TO INVENTORY----------')
@@ -170,7 +263,7 @@ def admin_panel():
     if option < 1 or option > 5:
         print('Invalid option')
         input('Press <enter> key to continue ...')
-        return menu()
+        return adminpanel()
 
     if option == 1:
         add_product()
@@ -186,64 +279,76 @@ def admin_panel():
     return admin_panel()
 
 
+# #### Function to generate bill and update inventory
+
+# In[22]:
+
+
 def transaction(pdt_ids) :
         import time
         time.ctime()
-        import json
+        
         sales = {}
         report=[]
     
         total=0
 
-        with open('data.json','r') as j_f:
+        with open('inventory.json','r') as j_f:
             data=json.load(j_f)
             
-            
-#         import json
-#         a_file = open("records.json", "r")
-#         json_object = json.load(a_file)
-#         a_file.close()
-            
+        
         order={}
+        report.append(str(time.ctime())+'\nTransaction ID: '+str(data['transid']))
 
             
         for pdt_id in pdt_ids:
-            print(f"Selected Product Name: {data['products'][pdt_id]['name']} -",f"Price : {data['products'][pdt_id]['price']}")
+            print(f"Selected Product Name: {data['products'][pdt_id]['name']} -",f"Price : {data['products'][pdt_id]['price']}",f"\nQuantity Available : {data['products'][pdt_id]['quantity']}")
             order[pdt_id]=input("Enter the Quantity")
         
         print("\n************Bill***************\n")
-        print("Receipt No :")
+        print("Receipt No : ",data['transid'])
         print(time.ctime(),'\n')
         for x, y in order.items():
             print(f"{data['products'][x]['name']}  : {data['products'][x]['price']} *",y,"=",int(data['products'][x]['price'])*int(y))
-            total+= (int(data['products'][x]['price'])*int(y))
+            total += (int(data['products'][x]['price'])*int(y))
+            
         print("************************************")
+        print("Total =",total,"Rs")
+        print("************************************")
+        
         
         for k, v in order.items():
     
             #updating product data in json file
             data ['products'][k]['quantity'] = int(int(data ['products'][k]['quantity']) - int(v))
-            j_f = open("data1.json", "w+")
-            json.dump(data, j_f)
-    #       j_f.close()
+            j_f = open("inventory.json", "w+")
+            json.dump(data, j_f, indent=2, sort_keys=True)
+            data['transid'] += 1
+   
 
             #generating data for sales file    
-            report.append( '\n\n'+str(time.ctime())+'\n'+'Product name: '+data['products'][k]['name']+" Qty "+str(data['products'][k]['quantity'])+"\nTotal Amt: "+ str(data['products'][k]['price'])+' '+str(total))
+            report.append('\nProduct name: '+data['products'][k]['name']+"\tQty sold: "+str(v))
             fdr=open('report.txt','a') 
-            for i in report:
-                fdr.write(i)
-            fdr.close()
-
             
+        report.append('\nTotal Amount: ' + str(total) + 'Rs \n\n ')
+        for i in report:
+            fdr.write(i)
+        fdr.close()
+            
+#     return main()     
 
 
-        print("------------------------------------")
-        print("Total =",total,"Rs")
-        print("************************************")
+# ### Dashboard of program
+# 
+# User can view list available products.
+# 
+# Input the product id's of required products
+# 
+# To enter Admin Panel enter '0'
+# 
+# Default Credentials: user_id = 'admin'            pass: '12345'
 
-        
-        with open("sales.json", "w") as outfile:
-            json.dump(sales, outfile, indent=1)
+# In[24]:
 
 
 def main():
@@ -265,11 +370,16 @@ def main():
                 if (i not in ids):
                     print("Invalid Input")
                     main()
-                
-            
         transaction(ui_pid)
 
 
     
-if __name__ == "__main__":
-    main()
+
+main()
+
+
+# In[ ]:
+
+
+
+
